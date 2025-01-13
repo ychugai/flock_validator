@@ -39,7 +39,7 @@ import math
 
 load_dotenv()
 TIME_SLEEP = int(os.getenv("TIME_SLEEP", 60 * 3))
-CUSTOM_TIME_SLEEP = 60
+CUSTOM_TIME_SLEEP = 60 * 3
 ASSIGNMENT_LOOKUP_INTERVAL = 60 * 3  # 3 minutes
 FLOCK_API_KEY = os.getenv("FLOCK_API_KEY")
 if FLOCK_API_KEY is None:
