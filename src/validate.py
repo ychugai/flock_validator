@@ -39,6 +39,7 @@ import math
 
 load_dotenv()
 TIME_SLEEP = int(os.getenv("TIME_SLEEP", 60 * 3))
+CUSTOM_TIME_SLEEP = 60
 ASSIGNMENT_LOOKUP_INTERVAL = 60 * 3  # 3 minutes
 FLOCK_API_KEY = os.getenv("FLOCK_API_KEY")
 if FLOCK_API_KEY is None:
@@ -459,8 +460,8 @@ def loop(
                         time.sleep(time_to_sleep)
                     continue
                 else:
-                    logger.info(f"Sleeping for {int(TIME_SLEEP)} seconds")
-                    time.sleep(TIME_SLEEP)
+                    logger.info(f"Sleeping for {int(CUSTOM_TIME_SLEEP)} seconds")
+                    time.sleep(CUSTOM_TIME_SLEEP)
                     continue
 
         if resp is None or resp.status_code != 200:
