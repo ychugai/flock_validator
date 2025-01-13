@@ -17,6 +17,7 @@ from transformers import (
     TrainingArguments,
     file_utils,
 )
+from flash_attn.models.gpt import GPTLMHeadModel, GPTConfig
 
 from dotenv import load_dotenv
 from pathlib import Path
@@ -135,8 +136,8 @@ def load_model(
         with open("lora/adapter_config.json", "r") as f:
             adapter_config = json.load(f)
         base_model = adapter_config["base_model_name_or_path"]
-        model = AutoModelForCausalLM.from_pretrained(
-            base_model, token=HF_TOKEN, **model_kwargs
+        model = GPTLMHeadModel.from_pretrained(
+            base_model, config=GPTConfig(use_flash_attn=True), **model_kwargs
         )
         # download the adapter weights
         download_lora_repo(model_name_or_path, revision)
@@ -155,8 +156,10 @@ def load_model(
             )
             return None
         logger.info("Repo is a full fine-tuned model, loading model directly")
-        model = AutoModelForCausalLM.from_pretrained(
-            model_name_or_path, token=HF_TOKEN, **model_kwargs
+        model = GPTLMHeadModel.from_pretrained(
+            model_name_or_path,
+            config=GPTConfig(use_flash_attn=True),  # Enable FlashAttention
+            **model_kwargs,
         )
 
     if "output_router_logits" in model.config.to_dict():
