@@ -467,6 +467,7 @@ def loop(
         if resp is None or resp.status_code != 200:
             continue
         resp = resp.json()
+        print(resp)
         eval_file = download_file(resp["data"]["validation_set_url"])
         revision = resp["task_submission"]["data"].get("revision", "main")
         assignment_id = resp["id"]
