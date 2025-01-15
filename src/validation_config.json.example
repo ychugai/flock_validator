@@ -3,12 +3,11 @@
     "fp16": true,
     "remove_unused_columns": false,
     "eval_accumulation_steps": 16,
-    "max_seq_length": 4096,
     "logging_steps": 50,
     "gradient_checkpointing": false,
     "dataloader_num_workers": 4,
     "output_dir": ".",
-    "evaluation_strategy": "steps",
+    "eval_strategy": "steps",
     "eval_steps": 100,
     "seed": 42
 }
